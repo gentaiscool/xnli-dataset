@@ -46,7 +46,7 @@ for lang in lang_map:
     print(f"train {lang} :", len(train_data_per_lang[lang]))
     print(f"validation {lang} :", len(validation_data_per_lang[lang]))
     print(f"test {lang} :", len(test_data_per_lang[lang]))
-    
+
     with open(f"xnli_train_{lang}.tsv", "w+") as f:
         f.write("id\tpremise\thypothesis\tlabel\n")
         for obj in train_data_per_lang[lang]:
@@ -67,11 +67,12 @@ for lang in lang_map:
         for obj in test_data_per_lang[lang]:
             f.write(str(obj[0]) + "\t" + obj[1] + "\t" + obj[2] + "\t" + str(obj[3]) + "\n")   
 
-    os.system(f"zip -r xnli_train_filtered_{lang}.zip xnli_train_filtered_{lang}.tsv")
-    os.system(f"zip -r xnli_train_{lang}.zip xnli_train_{lang}.tsv")
-    os.system(f"zip -r xnli_validation_{lang}.zip xnli_validation_{lang}.tsv")
-    os.system(f"zip -r xnli_test_{lang}.zip xnli_test_{lang}.tsv")
+    os.system(f"tar -czvf xnli_train_filtered_{lang}.tar.gz xnli_train_filtered_{lang}.tsv")
+    os.system(f"tar -czvf xnli_train_{lang}.tar.gz xnli_train_{lang}.tsv")
+    os.system(f"tar -czvf xnli_validation_{lang}.tar.gz xnli_validation_{lang}.tsv")
+    os.system(f"tar -czvf xnli_test_{lang}.tar.gz xnli_test_{lang}.tsv")
     os.system(f"rm xnli_train_filtered_{lang}.tsv")
     os.system(f"rm xnli_train_{lang}.tsv")
     os.system(f"rm xnli_validation_{lang}.tsv")
     os.system(f"rm xnli_test_{lang}.tsv")
+    os.system(f"rm *.zip")
